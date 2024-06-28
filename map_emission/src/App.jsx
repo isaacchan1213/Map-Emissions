@@ -2,12 +2,17 @@ import React from 'react';
 import {createRoot} from 'react-dom/client';
 import {APIProvider, Map} from '@vis.gl/react-google-maps';
 
+const containerStyle = {
+  width: '100vw',
+  height: '100vw'
+};
+
 const App = () => (
   <APIProvider apiKey={import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_API_KEY}>
     <Map
-      style={{width: '100vw', height: '100vh'}}
-      defaultCenter={{lat: 22.54992, lng: 0}}
-      defaultZoom={3}
+      style={containerStyle}
+      defaultCenter={{lat: 42.3500635818502, lng: -71.10313354361499}}
+      defaultZoom={18}
       gestureHandling={'greedy'}
       disableDefaultUI={true}
     />
