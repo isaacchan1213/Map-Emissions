@@ -1,0 +1,29 @@
+.main {
+    display: flex;
+    flex-direction: row;
+}
+.bar {
+    width: 30vw;
+    height: 100vw;
+}
+.title {
+    font-size: 15px;
+}
+.map {
+    width: 70vw;
+    height: 100vw;
+}
+.search-destination {
+    display: flex;
+    flex-direction: column;
+}
+.starting {
+    display: flex;
+    flex-direction: column;
+    width: 130px;
+}
+.end {
+    display: flex;
+    flex-direction: column;
+    width: 130px;
+}
