@@ -3,10 +3,11 @@ import {createRoot} from 'react-dom/client';
 import { useJsApiLoader, GoogleMap, Autocomplete, DirectionsService, DirectionsRenderer} from '@react-google-maps/api';
 import './App.css'
 
+const libraries = ['places'];
 function App() {
   const {isLoaded} = useJsApiLoader({
     googleMapsApiKey: import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_API_KEY,
-    libraries: ['places'],
+    libraries: libraries,
   })
 
   const containerStyle = {
@@ -32,7 +33,7 @@ function App() {
     if (startRef.current.value == '' || endRef.current.value == '') {
       return 
     }
-    const directionService = new window.google.maps.DirectionsService()
+    const directionService = new google.maps.DirectionsService()
     const result = await directionService.route({
       origin: startRef.current.value,
       destination: endRef.current.value,
@@ -67,8 +68,11 @@ function App() {
               <input type="text" placeholder='End Location' ref={endRef}/>
             </Autocomplete>
           </div>
-          <div className='calculate' type='submit' onClick={calculateRoute}>
-            <button>Calculate Emissions</button>
+          <div className='calculate'>
+            <button onClick={calculateRoute}>Calculate Emissions</button>
+          </div>
+          <div className='clear'>
+            <button onClick={clearRoute}>Clear</button>
           </div>
       </div>
       </div>
