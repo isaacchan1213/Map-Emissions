@@ -2,16 +2,16 @@
     display: flex;
     flex-direction: row;
 }
-.bar {
+.user-interface {
     width: 30vw;
-    height: 100vw;
+    height: 100vh;
 }
 .title {
     font-size: 15px;
 }
 .map {
     width: 70vw;
-    height: 100vw;
+    height: 100vh;
 }
 .search-destination {
     display: flex;
