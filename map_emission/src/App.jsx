@@ -1,7 +1,8 @@
 import React, {useState, useRef} from 'react';
 import {createRoot} from 'react-dom/client';
 import { useJsApiLoader, GoogleMap, Autocomplete, DirectionsService, DirectionsRenderer} from '@react-google-maps/api';
-import './App.css'
+import './App.css';
+import Dropdown from './Dropdown.jsx';
 
 const libraries = ['places'];
 function App() {
@@ -67,6 +68,9 @@ function App() {
             <Autocomplete>
               <input type="text" placeholder='End Location' ref={endRef}/>
             </Autocomplete>
+          </div>
+          <div className='dropdown'>
+            <Dropdown/>
           </div>
           <div className='calculate'>
             <button onClick={calculateRoute}>Calculate Emissions</button>
