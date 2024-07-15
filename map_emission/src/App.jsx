@@ -1,14 +1,14 @@
 import React, {useState, useRef} from 'react';
-import {createRoot} from 'react-dom/client';
 import { useJsApiLoader, GoogleMap, Autocomplete, DirectionsService, DirectionsRenderer} from '@react-google-maps/api';
 import './App.css';
 import Dropdown from './Dropdown.jsx';
 
 const libraries = ['places'];
+
 function App() {
   const {isLoaded} = useJsApiLoader({
     googleMapsApiKey: import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_API_KEY,
-    libraries: libraries,
+    libraries
   })
 
   const containerStyle = {
@@ -16,7 +16,7 @@ function App() {
     height: '100vh'
   }
 
-  const [CO2, setCO2] = useState(null);
+  const [CO2, setCO2] = useState(0);
 
   const getCO2 = (co2) => {
     setCO2(co2)
@@ -27,7 +27,7 @@ function App() {
   const [directionResponse, setDirectionResponse] = useState(null)
   const [distance, setDistance] = useState('')
   const [duration, setDuration] = useState('')
-
+  const [distanceInMeters, setDistanceInMeters] = useState(0)
   const startRef = useRef()
 
   const endRef = useRef()
@@ -49,6 +49,7 @@ function App() {
     setDirectionResponse(result)
     setDistance(result.routes[0].legs[0].distance.text)
     setDuration(result.routes[0].legs[0].duration.text)
+    setDistanceInMeters(result.routes[0].legs[0].distance.value)
   }
 
   function clearRoute() {
@@ -77,13 +78,17 @@ function App() {
           </div>
           <div className='dropdown'>
             <Dropdown getCO2={getCO2}/>
-            {CO2}
           </div>
           <div className='calculate'>
             <button onClick={calculateRoute}>Calculate Emissions</button>
           </div>
           <div className='clear'>
             <button onClick={clearRoute}>Clear</button>
+          </div>
+          <div className='result'>
+           { distance && <p>Distance: {distance}</p> }
+           { duration && <p>Duration: {duration}</p> }
+           { distance && <p>CO2 Emitted: {CO2 * (distanceInMeters/1000)} g/km</p>}
           </div>
       </div>
       </div>
