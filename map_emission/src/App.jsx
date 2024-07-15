@@ -14,7 +14,13 @@ function App() {
   const containerStyle = {
     width: '100vw',
     height: '100vh'
-  };
+  }
+
+  const [CO2, setCO2] = useState(null);
+
+  const getCO2 = (co2) => {
+    setCO2(co2)
+  }
   
   const center = { lat: 42.3500635818502, lng: -71.10313354361499}
 
@@ -70,7 +76,8 @@ function App() {
             </Autocomplete>
           </div>
           <div className='dropdown'>
-            <Dropdown/>
+            <Dropdown getCO2={getCO2}/>
+            {CO2}
           </div>
           <div className='calculate'>
             <button onClick={calculateRoute}>Calculate Emissions</button>

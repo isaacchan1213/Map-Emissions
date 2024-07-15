@@ -7,13 +7,14 @@ const options = data.map(item => ({
     label: `${item.Make} ${item.Model} ${item['Vehicle Class']} (${item['Engine Size(L)']}L)`
 }));
 
-function Dropdown() {
-    const [co2, setco2] = useState(null);
+const Dropdown = ({getCO2}) => {
+    const [co2, setCO2] = useState(null);
 
     const handleChange = (selectedOption) => {
         console.log('Selected:', selectedOption);
         console.log('CO2 Emissions:', selectedOption.value['CO2 Emissions(g/km)']);
-        setco2(selectedOption.value['CO2 Emissions(g/km)'])
+        setCO2(selectedOption.value['CO2 Emissions(g/km)'])
+        getCO2(selectedOption.value['CO2 Emissions(g/km)'])
     };
 
     return (
@@ -23,7 +24,6 @@ function Dropdown() {
                 placeholder="Type of Car"
                 onChange={handleChange}
             />
-            <p>{co2}</p>
         </div>
     );
 }
