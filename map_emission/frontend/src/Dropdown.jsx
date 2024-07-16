@@ -1,14 +1,25 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Select from 'react-select';
-import data from './car-data.json'; 
-
-const options = data.map(item => ({
-    value: item,
-    label: `${item.Make} ${item.Model} ${item['Vehicle Class']} (${item['Engine Size(L)']}L)`
-}));
+import axios from 'axios';
 
 const Dropdown = ({getCO2}) => {
+    const [options, setOptions] = useState([])
     const [co2, setCO2] = useState(null);
+
+    useEffect(() => {
+        axios.get('http://127.0.0.1:5000/get-cars')
+            .then(response => {
+                console.log(data)
+                const formatedOptions = data.map(item => ({
+                    value: item,
+                    label: `${item.Make} ${item.Model} ${item['Vehicle Class']} (${item['Engine Size(L)']}L)`
+                }));
+                setOptions(formatedOptions);
+            })
+            .catch(error => {
+                console.error('Error fetching data', error);
+        });
+    }, []);
 
     const handleChange = (selectedOption) => {
         console.log('Selected:', selectedOption);
