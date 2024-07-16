@@ -9,7 +9,7 @@ const Dropdown = ({getCO2}) => {
     useEffect(() => {
         axios.get('http://127.0.0.1:5000/get-cars')
             .then(response => {
-                console.log(data)
+                const data = response.data;
                 const formatedOptions = data.map(item => ({
                     value: item,
                     label: `${item.Make} ${item.Model} ${item['Vehicle Class']} (${item['Engine Size(L)']}L)`
