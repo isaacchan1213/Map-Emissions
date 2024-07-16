@@ -61,6 +61,7 @@ function App() {
     startRef.current.value = ''
     endRef.current.value = ''
     setReset(true);
+    setTimeout(() => setReset(false), 100)
   }
   return (
     <div className='main'>
