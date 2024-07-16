@@ -16,6 +16,8 @@ function App() {
     height: '100vh'
   }
 
+  const [reset, setReset] = useState(false);
+
   const [CO2, setCO2] = useState(0);
 
   const getCO2 = (co2) => {
@@ -28,8 +30,8 @@ function App() {
   const [distance, setDistance] = useState('')
   const [duration, setDuration] = useState('')
   const [distanceInMeters, setDistanceInMeters] = useState(0)
-  const startRef = useRef()
 
+  const startRef = useRef()
   const endRef = useRef()
 
   if (!isLoaded) {
@@ -58,6 +60,11 @@ function App() {
     setDuration('')
     startRef.current.value = ''
     endRef.current.value = ''
+    setReset(true)
+
+    setTimeout(() => {
+      setReset(false);
+    }, 100);
   }
   return (
     <div className='main'>
@@ -77,7 +84,7 @@ function App() {
             </Autocomplete>
           </div>
           <div className='dropdown'>
-            <Dropdown getCO2={getCO2}/>
+            <Dropdown getCO2={getCO2} reset={reset}/>
           </div>
           <div className='calculate'>
             <button onClick={calculateRoute}>Calculate Emissions</button>
