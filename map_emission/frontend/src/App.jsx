@@ -23,6 +23,12 @@ function App() {
   const getCO2 = (co2) => {
     setCO2(co2)
   }
+
+  const [selectedMode, setSelectedMode] = useState('DRIVING')
+
+  const handleChange = (event) => {
+    setSelectedMode(event.target.value);
+  };
   
   const center = { lat: 42.3500635818502, lng: -71.10313354361499}
 
@@ -43,10 +49,11 @@ function App() {
       return 
     }
     const directionService = new google.maps.DirectionsService()
+    const transit = document.getElementById("mode").value
     const result = await directionService.route({
       origin: startRef.current.value,
       destination: endRef.current.value,
-      travelMode: google.maps.TravelMode.DRIVING
+      travelMode: google.maps.TravelMode[transit]
     })
     setDirectionResponse(result)
     setDistance(result.routes[0].legs[0].distance.text)
@@ -63,6 +70,7 @@ function App() {
     setReset(true);
     setTimeout(() => setReset(false), 100)
   }
+
   return (
     <div className='main'>
       <div className='user-interface'>
@@ -80,8 +88,17 @@ function App() {
               <input type="text" placeholder='End Location' ref={endRef}/>
             </Autocomplete>
           </div>
+          <div className="transit-selector">
+            <b>Method of Transit: </b>
+            <select id="mode" value={selectedMode} onChange={handleChange}>
+              <option value="DRIVING">Driving</option>
+              <option value="WALKING">Walking</option>
+              <option value="BICYCLING">Bicycling</option>
+              <option value="TRANSIT">Transit</option>
+            </select>
+          </div>
           <div className='dropdown'>
-            <Dropdown getCO2={getCO2} reset={reset}/>
+            {selectedMode === 'DRIVING' && <Dropdown getCO2={getCO2} reset={reset}/>}
           </div>
           <div className='calculate'>
             <button onClick={calculateRoute}>Calculate Emissions</button>
@@ -92,7 +109,13 @@ function App() {
           <div className='result'>
            { distance && <p>Distance: {distance}</p> }
            { duration && <p>Duration: {duration}</p> }
-           { distance && <p>CO2 Emitted: {CO2 * (distanceInMeters/1000)} g/km</p>}
+           { distance && selectedMode === 'DRIVING' ? (
+            <p>CO2 Emitted: {CO2 * (distanceInMeters/1000)} g/km</p>
+           ) : distance && selectedMode === 'TRANSIT' ? (
+            <p>CO2 Emitted: {49 * (distanceInMeters/1000)} g/km</p>
+           ) : distance && (
+            <p>No CO2 Emitted!</p>
+           )}
           </div>
       </div>
       </div>
