@@ -110,9 +110,9 @@ function App() {
            { distance && <p>Distance: {distance}</p> }
            { duration && <p>Duration: {duration}</p> }
            { distance && selectedMode === 'DRIVING' ? (
-            <p>CO2 Emitted: {CO2 * (distanceInMeters/1000)} g/km</p>
+            <p>CO2 Emitted: {(CO2 * (distanceInMeters/1000)).toFixed(2)} grams</p>
            ) : distance && selectedMode === 'TRANSIT' ? (
-            <p>CO2 Emitted: {49 * (distanceInMeters/1000)} g/km</p>
+            <p>CO2 Emitted: {(49 * (distanceInMeters/1000)).toFixed(2)} grams</p>
            ) : distance && (
             <p>No CO2 Emitted!</p>
            )}
