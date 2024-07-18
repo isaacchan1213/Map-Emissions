@@ -1,8 +1,9 @@
-# React + Vite
+# React/Vite + Google Map Setup
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+To run code need to install dependencies. Use the command: **npm install** to get all needed packages and libraries.
 
-Currently, two official plugins are available:
+You will also need a **.env** file with a working Google Maps API key in order to display the map. 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Run local host
+
+Please use **npm run dev** in the terminal to run. 
