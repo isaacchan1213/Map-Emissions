@@ -27,4 +27,4 @@ dist-ssr
 *.env
 
 # Python Virtual Environments
-venv/
+map_emission/backend/venv/
