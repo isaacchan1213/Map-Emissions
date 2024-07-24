@@ -2,6 +2,7 @@ import React, {useState, useRef} from 'react';
 import { useJsApiLoader, GoogleMap, Autocomplete, DirectionsService, DirectionsRenderer} from '@react-google-maps/api';
 import './App.css';
 import Dropdown from './Dropdown.jsx';
+import AI from './AI.jsx';
 
 const libraries = ['places'];
 
@@ -20,8 +21,14 @@ function App() {
 
   const [CO2, setCO2] = useState(0);
 
+  const [carModel, setCarModel] = useState('')
+
   const getCO2 = (co2) => {
     setCO2(co2)
+  }
+
+  const getCarModel = (car) => {
+    setCarModel(car)
   }
 
   const [selectedMode, setSelectedMode] = useState('DRIVING')
@@ -53,7 +60,7 @@ function App() {
     const result = await directionService.route({
       origin: startRef.current.value,
       destination: endRef.current.value,
-      travelMode: google.maps.TravelMode[transit]
+      travelMode: google.maps.TravelMode[transit],
     })
     setDirectionResponse(result)
     setDistance(result.routes[0].legs[0].distance.text)
@@ -98,7 +105,7 @@ function App() {
             </select>
           </div>
           <div className='dropdown'>
-            {selectedMode === 'DRIVING' && <Dropdown getCO2={getCO2} reset={reset}/>}
+            {selectedMode === 'DRIVING' && <Dropdown getCO2={getCO2} getCarModel={getCarModel} reset={reset}/>}
           </div>
           <div className='calculate'>
             <button onClick={calculateRoute}>Calculate Emissions</button>
@@ -116,6 +123,9 @@ function App() {
            ) : distance && (
             <p>No CO2 Emitted!</p>
            )}
+          </div>
+          <div className='ai-suggestion'>
+            {distance && <AI carModel={carModel} transportation={selectedMode} distance={distance}/>}
           </div>
       </div>
       </div>
