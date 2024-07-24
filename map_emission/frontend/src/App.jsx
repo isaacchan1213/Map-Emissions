@@ -60,7 +60,7 @@ function App() {
     const result = await directionService.route({
       origin: startRef.current.value,
       destination: endRef.current.value,
-      travelMode: google.maps.TravelMode[transit]
+      travelMode: google.maps.TravelMode[transit],
     })
     setDirectionResponse(result)
     setDistance(result.routes[0].legs[0].distance.text)

@@ -13,7 +13,7 @@ CORS(app)
 
 chat = ChatGroq(
     model="mixtral-8x7b-32768",
-    temperature=0.0,
+    temperature=0.7,
     max_retries=2,
     api_key=os.getenv('GROQ_API_KEY')  
 )
@@ -37,13 +37,23 @@ def get_cars():
 @app.route('/api/get-suggestions', methods=['POST'])
 def get_suggestions():
     data = request.json
-    car_model = data.get('carModel', '')
     transportation = data.get('transportation', '')
     distance = data.get('distance', '')
+    
+    if transportation == "DRIVING":
+        car_model = data.get('carModel', '')
+    else: 
+        car_model = ''
 
-    user_message = f"Based on the following data, provide suggestions in roughly 3 sentences:
-                    \n\nCar Model: {car_model}\nMeans of Transportation: {transportation}\nDistance: 
-                    {distance}\n\nConsider the information above and offer suggestions on how to improve."
+    if car_model:
+        user_message = f"""Based on the following data, provide suggestions in roughly 2-3 sentences. Consider other means of transportation
+                        as a sentence. Consider how the distance can impact conviencence and how to offer other suggestions based off it. Lastly,
+                        consider the car model and how efficient it typically is. Write this all in Markdown format.
+                        \nMeans of Transportation: {transportation}\nCar Model: {car_model}\nDistance: 
+                        {distance}\n\nConsider the information above and offer suggestions on how to improve."""
+    else:
+        user_message = f"""Write this all in Markdown format. Based on the following data, provide encouragement and information on why their method is a better alternative in roughly 2-3 sentences:
+                        \nMeans of Transportation: {transportation}\nDistance: {distance}\n\nHighlight the benefits of using {transportation} over other methods."""
 
     messages = [
         ("system", "You are educated in carbon emission reduction."),
@@ -59,4 +69,5 @@ def get_suggestions():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
+    app.debug = True
     app.run()
