@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import './AI.css'
 
 const AI = ({carModel, transportation, distance}) => {
     const [response, setResponse] = useState('');
@@ -40,7 +41,7 @@ const AI = ({carModel, transportation, distance}) => {
     }, [carModel, transportation, distance]);
 
     return(
-        <div>
+        <div className="suggestion-box">
             <h2>AI Suggestions</h2>
             {loading && <p>Loading...</p>}
             {error && <div style={{ color: 'red' }}>Error: {error}</div>}

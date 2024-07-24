@@ -10,8 +10,7 @@
     height: 40px;
 }
 .transit-button.active {
-    width: 60px;
-    height: 60px;
+    transform: scale(1.10)
 }
 .transit-button:hover {
     background-color:aliceblue

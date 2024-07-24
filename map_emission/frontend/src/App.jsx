@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import { useJsApiLoader, GoogleMap, Autocomplete, DirectionsService, DirectionsRenderer} from '@react-google-maps/api';
 import './App.css';
 import Dropdown from './Dropdown.jsx';
@@ -34,10 +34,6 @@ function App() {
 
   const [selectedMode, setSelectedMode] = useState('')
 
-  const handleChange = (event) => {
-    setSelectedMode(event.target.value);
-  };
-
   const handleButtonClick = (mode) => {
     setSelectedMode(mode);
   };
@@ -49,8 +45,14 @@ function App() {
   const [duration, setDuration] = useState('')
   const [distanceInMeters, setDistanceInMeters] = useState(0)
 
+  const directionsRendererRef = useRef(null);
+
   const startRef = useRef()
   const endRef = useRef()
+
+  useEffect(() => {
+    console.log('directionResponse changed:', directionResponse);
+  }, [directionResponse]);
 
   if (!isLoaded) {
     return <h1>loading...</h1>
@@ -74,14 +76,19 @@ function App() {
   }
 
   function clearRoute() {
-    setDirectionResponse(null)
+    console.log('Clearing route...');
+    console.log('Before clear - directionResponse:', directionResponse);
+    setDirectionResponse(null);
+    if (directionsRendererRef.current) {
+      directionsRendererRef.current = null;
+    }
     setDistance('')
     setDuration('')
     startRef.current.value = ''
     endRef.current.value = ''
     setReset(true);
     setSelectedMode('');
-    setTimeout(() => setReset(false), 100)
+    console.log('After clear - directionResponse:', directionResponse)
   }
 
   return (
@@ -110,8 +117,8 @@ function App() {
             />
             <TransitButton 
               src="/images/bicycle.png" 
-              isActive={selectedMode === 'BICYCLE'}
-              onClick={() => handleButtonClick('BICYCLE')}
+              isActive={selectedMode === 'BICYCLING'}
+              onClick={() => handleButtonClick('BICYCLING')}
             />
             <TransitButton 
               src="/images/walking.png" 
@@ -127,11 +134,13 @@ function App() {
           <div className='dropdown'>
             {selectedMode === 'DRIVING' && <Dropdown getCO2={getCO2} getCarModel={getCarModel} reset={reset}/>}
           </div>
-          <div className='calculate'>
-            <button onClick={calculateRoute}>Calculate Emissions</button>
-          </div>
-          <div className='clear'>
-            <button onClick={clearRoute}>Clear</button>
+          <div className='buttons'>
+            <div className='button'>
+                <button onClick={calculateRoute}>Calculate Emissions</button>
+            </div>
+            <div className='button'>
+              <button onClick={clearRoute}>Clear</button>
+            </div>
           </div>
           <div className='result'>
            { distance && <p>Distance: {distance}</p> }
@@ -154,7 +163,7 @@ function App() {
           center={center}
           zoom={15}
         >
-          {directionResponse && <DirectionsRenderer directions={directionResponse} />}
+          {directionResponse && <DirectionsRenderer directions={directionResponse} ref={directionsRendererRef} />}
         </GoogleMap>
       </div>
     </div>
