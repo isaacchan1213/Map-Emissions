@@ -2,10 +2,11 @@ import React, {useState, useEffect} from 'react';
 import Select from 'react-select';
 import axios from 'axios';
 
-const Dropdown = ({getCO2, getCarModel, reset}) => {
+const Dropdown = ({getCO2, reset}) => {
     const [options, setOptions] = useState([]);
     const [selectedOption, setSelectedOption] = useState(null);
     const [co2, setCO2] = useState(null);
+
     
     useEffect(() => {
         if (reset) {
@@ -35,7 +36,6 @@ const Dropdown = ({getCO2, getCarModel, reset}) => {
         console.log('CO2 Emissions:', selectedOption.value['CO2 Emissions(g/km)']);
         setCO2(selectedOption.value['CO2 Emissions(g/km)']);
         getCO2(selectedOption.value['CO2 Emissions(g/km)']);
-        getCarModel(`${selectedOption.value.Make} ${selectedOption.value.Model} ${selectedOption.value['Vehicle Class']} (${selectedOption.value['Engine Size(L)']}L)`)
     };
 
     return (
