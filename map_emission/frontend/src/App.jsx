@@ -3,6 +3,7 @@ import { useJsApiLoader, GoogleMap, Autocomplete, DirectionsService, DirectionsR
 import './App.css';
 import Dropdown from './Dropdown.jsx';
 import AI from './AI.jsx';
+import TransitButton from './TransitButton.jsx'
 
 const libraries = ['places'];
 
@@ -31,10 +32,14 @@ function App() {
     setCarModel(car)
   }
 
-  const [selectedMode, setSelectedMode] = useState('DRIVING')
+  const [selectedMode, setSelectedMode] = useState('')
 
   const handleChange = (event) => {
     setSelectedMode(event.target.value);
+  };
+
+  const handleButtonClick = (mode) => {
+    setSelectedMode(mode);
   };
   
   const center = { lat: 42.3500635818502, lng: -71.10313354361499}
@@ -75,6 +80,7 @@ function App() {
     startRef.current.value = ''
     endRef.current.value = ''
     setReset(true);
+    setSelectedMode('');
     setTimeout(() => setReset(false), 100)
   }
 
@@ -85,24 +91,38 @@ function App() {
             <h1>Map your emissions now.</h1>
         </div>
         <div className='search-destination'>
-          <div className='starting'>
+          <div className='autocomplete-wrapper'>
             <Autocomplete>
               <input type="text" placeholder='Start Location' ref={startRef}/>
             </Autocomplete>
           </div>
-          <div className='end'>
+          <div className='autocomplete-wrapper'>
             <Autocomplete>
               <input type="text" placeholder='End Location' ref={endRef}/>
             </Autocomplete>
           </div>
-          <div className="transit-selector">
-            <b>Method of Transit: </b>
-            <select id="mode" value={selectedMode} onChange={handleChange}>
-              <option value="DRIVING">Driving</option>
-              <option value="WALKING">Walking</option>
-              <option value="BICYCLING">Bicycling</option>
-              <option value="TRANSIT">Transit</option>
-            </select>
+        </div>
+        <div className="transit-selector">
+            <TransitButton 
+              src="/images/car.png" 
+              isActive={selectedMode === 'DRIVING'}
+              onClick={() => handleButtonClick('DRIVING')}
+            />
+            <TransitButton 
+              src="/images/bicycle.png" 
+              isActive={selectedMode === 'BICYCLE'}
+              onClick={() => handleButtonClick('BICYCLE')}
+            />
+            <TransitButton 
+              src="/images/walking.png" 
+              isActive={selectedMode === 'WALKING'}
+              onClick={() => handleButtonClick('WALKING')}
+            />
+            <TransitButton 
+              src="/images/train.png" 
+              isActive={selectedMode === 'TRAIN'}
+              onClick={() => handleButtonClick('TRAIN')}
+            />
           </div>
           <div className='dropdown'>
             {selectedMode === 'DRIVING' && <Dropdown getCO2={getCO2} getCarModel={getCarModel} reset={reset}/>}
@@ -127,7 +147,6 @@ function App() {
           <div className='ai-suggestion'>
             {distance && <AI carModel={carModel} transportation={selectedMode} distance={distance}/>}
           </div>
-      </div>
       </div>
       <div className='map'>
         <GoogleMap

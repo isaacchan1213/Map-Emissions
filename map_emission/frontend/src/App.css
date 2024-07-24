@@ -1,29 +1,43 @@
 .main {
     display: flex;
     flex-direction: row;
+    height: 100%;
 }
 .user-interface {
+    display: flex;
+    flex-direction: column;
     width: 30vw;
     height: 100vh;
+    margin-top: 10px;
+    margin-left: 10px;
 }
 .title {
     font-size: 15px;
 }
 .map {
-    width: 70vw;
-    height: 100vh;
+    width: 75vw;
 }
 .search-destination {
     display: flex;
     flex-direction: column;
+    gap: 5px;
+    margin-top: 20px;;
 }
-.starting {
-    display: flex;
-    flex-direction: column;
-    width: 130px;
+.autocomplete-wrapper {
+    position: relative;
+    width: 70%;
 }
-.end {
+.autocomplete-wrapper input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.transit-selector {
     display: flex;
-    flex-direction: column;
-    width: 130px;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0 10px 0;
 }
