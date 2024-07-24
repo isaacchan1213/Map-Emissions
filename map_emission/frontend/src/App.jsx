@@ -61,7 +61,7 @@ function App() {
       return 
     }
     const directionService = new google.maps.DirectionsService()
-    const transit = document.getElementById("mode").value
+    const transit = selectedMode
     const result = await directionService.route({
       origin: startRef.current.value,
       destination: endRef.current.value,
