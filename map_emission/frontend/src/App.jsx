@@ -10,7 +10,7 @@ const libraries = ['places'];
 function App() {
   const {isLoaded} = useJsApiLoader({
     googleMapsApiKey: import.meta.env.VITE_REACT_APP_GOOGLE_MAPS_API_KEY,
-    libraries
+    libraries: libraries
   })
 
   const containerStyle = {
@@ -32,10 +32,10 @@ function App() {
     setCarModel(car)
   }
 
-  const [selectedMode, setSelectedMode] = useState('')
+  const [selectedMode, setSelectedMode] = useState(null)
 
-  const handleButtonClick = (mode) => {
-    setSelectedMode(mode);
+  const handleButtonClick = (type) => {
+    setSelectedMode(type);
   };
   
   const center = { lat: 42.3500635818502, lng: -71.10313354361499}
@@ -45,14 +45,8 @@ function App() {
   const [duration, setDuration] = useState('')
   const [distanceInMeters, setDistanceInMeters] = useState(0)
 
-  const directionsRendererRef = useRef(null);
-
   const startRef = useRef()
   const endRef = useRef()
-
-  useEffect(() => {
-    console.log('directionResponse changed:', directionResponse);
-  }, [directionResponse]);
 
   if (!isLoaded) {
     return <h1>loading...</h1>
@@ -76,19 +70,17 @@ function App() {
   }
 
   function clearRoute() {
-    console.log('Clearing route...');
-    console.log('Before clear - directionResponse:', directionResponse);
     setDirectionResponse(null);
-    if (directionsRendererRef.current) {
-      directionsRendererRef.current = null;
-    }
     setDistance('')
     setDuration('')
     startRef.current.value = ''
     endRef.current.value = ''
     setReset(true);
-    setSelectedMode('');
-    console.log('After clear - directionResponse:', directionResponse)
+    handleButtonClick('');
+    setSelectedMode(null);
+    setTimeout(() => {
+      setReset(false);
+    }, 100);
   }
 
   return (
@@ -163,7 +155,7 @@ function App() {
           center={center}
           zoom={15}
         >
-          {directionResponse && <DirectionsRenderer directions={directionResponse} ref={directionsRendererRef} />}
+          {selectedMode && <DirectionsRenderer directions={directionResponse} />}
         </GoogleMap>
       </div>
     </div>
