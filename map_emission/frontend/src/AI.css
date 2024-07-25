@@ -1,0 +1,9 @@
+.suggestion-box {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    gap: 5px;
+}
+.response {
+    margin-left: 5px;
+}

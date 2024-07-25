@@ -1,29 +1,100 @@
 .main {
     display: flex;
     flex-direction: row;
+    height: 100%;
 }
 .user-interface {
+    display: flex;
+    flex-direction: column;
     width: 30vw;
     height: 100vh;
+    margin-top: 25px;
+    margin-left: 20px;
 }
 .title {
+    position: relative;
     font-size: 15px;
+    align-items: center;
+}
+.title img {
+    position: absolute;
+    top: -9px;
+    right: 60px;
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
 }
 .map {
-    width: 70vw;
-    height: 100vh;
+    width: 75vw;
 }
 .search-destination {
     display: flex;
     flex-direction: column;
+    gap: 5px;
+    margin-top: 20px;;
 }
-.starting {
+.autocomplete-wrapper {
+    position: relative;
+    width: 70%;
+}
+.autocomplete-wrapper input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.transit-selector {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 0 10px 0;
+}
+.dropdown {
+    width: 70%
+}
+.buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 10px 0 10px 0;
+}
+.button button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 40px;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.button button:hover {
+    background-color:aliceblue;
+}
+.button button:active {
+    transform: scale(0.95)
+}
+.result {
     display: flex;
     flex-direction: column;
-    width: 130px;
+    gap: 10px;
+    padding: 15px 0 15px 0;
 }
-.end {
+.result img {
+    width: 20px;
+    height: 20px;
+}
+
+.result p {
+    font-size: 16px;
+}
+.stat {
     display: flex;
-    flex-direction: column;
-    width: 130px;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
 }
