@@ -4,6 +4,15 @@ import './App.css';
 import Dropdown from './Dropdown.jsx';
 import AI from './AI.jsx';
 import TransitButton from './TransitButton.jsx'
+import carImage from './assets/car.png';
+import bicycleImage from './assets/bicycle.png';
+import trainImage from './assets/train.png';
+import walkingImage from './assets/walking.png';
+import earthImage from './assets/earth.svg';
+import clockImage from './assets/clock.png';
+import markerImage from './assets/marker.png';
+import smokeImage from './assets/smoke.png';
+import treeImage from './assets/tree.png';
 
 const libraries = ['places'];
 
@@ -76,8 +85,7 @@ function App() {
     startRef.current.value = ''
     endRef.current.value = ''
     setReset(true);
-    handleButtonClick('');
-    setSelectedMode(null);
+    handleButtonClick(null);
     setTimeout(() => {
       setReset(false);
     }, 100);
@@ -87,7 +95,8 @@ function App() {
     <div className='main'>
       <div className='user-interface'>
         <div className='title'>
-            <h1>Map your emissions now.</h1>
+            <h1>Map your emissions <span style={{ color: 'green' }}>now</span>.</h1>
+            <img src={earthImage} alt="earth"/>
         </div>
         <div className='search-destination'>
           <div className='autocomplete-wrapper'>
@@ -103,24 +112,24 @@ function App() {
         </div>
         <div className="transit-selector">
             <TransitButton 
-              src="/images/car.png" 
+              src={carImage}
               isActive={selectedMode === 'DRIVING'}
               onClick={() => handleButtonClick('DRIVING')}
             />
             <TransitButton 
-              src="/images/bicycle.png" 
+              src={bicycleImage}
               isActive={selectedMode === 'BICYCLING'}
               onClick={() => handleButtonClick('BICYCLING')}
             />
             <TransitButton 
-              src="/images/walking.png" 
+              src={walkingImage}
               isActive={selectedMode === 'WALKING'}
               onClick={() => handleButtonClick('WALKING')}
             />
             <TransitButton 
-              src="/images/train.png" 
-              isActive={selectedMode === 'TRAIN'}
-              onClick={() => handleButtonClick('TRAIN')}
+              src={trainImage}
+              isActive={selectedMode === 'TRANSIT'}
+              onClick={() => handleButtonClick('TRANSIT')}
             />
           </div>
           <div className='dropdown'>
@@ -131,18 +140,37 @@ function App() {
                 <button onClick={calculateRoute}>Calculate Emissions</button>
             </div>
             <div className='button'>
-              <button onClick={clearRoute}>Clear</button>
+              {distance && <button onClick={clearRoute}>Clear</button>}
             </div>
           </div>
           <div className='result'>
-           { distance && <p>Distance: {distance}</p> }
-           { duration && <p>Duration: {duration}</p> }
+           { distance && 
+           (<div className='stat'>
+             <p><strong>Distance:</strong> {distance}</p>
+             <img src={markerImage}/>
+           </div>) 
+           }
+           { duration && 
+           (<div className='stat'>
+              <p><strong>Duration:</strong> {duration}</p>
+              <img src={clockImage}/>
+            </div>) 
+            }
            { distance && selectedMode === 'DRIVING' ? (
-            <p>CO2 Emitted: {(CO2 * (distanceInMeters/1000)).toFixed(2)} grams</p>
+            <div className="stat">
+              <p><strong>CO2 Emitted:</strong> {(CO2 * (distanceInMeters/1000)).toFixed(2)} grams</p>
+              <img src={smokeImage}/>
+            </div>
            ) : distance && selectedMode === 'TRANSIT' ? (
-            <p>CO2 Emitted: {(49 * (distanceInMeters/1000)).toFixed(2)} grams</p>
+            <div className="stat">
+              <p><strong>CO2 Emitted:</strong> {(49 * (distanceInMeters/1000)).toFixed(2)} grams</p>
+              <img src={smokeImage}/>
+            </div>
            ) : distance && (
-            <p>No CO2 Emitted!</p>
+            <div className="stat">
+              <strong>No CO2 Emitted!</strong>
+              <img src={treeImage}/>
+            </div>
            )}
           </div>
           <div className='ai-suggestion'>

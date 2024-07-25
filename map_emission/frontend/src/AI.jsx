@@ -43,9 +43,11 @@ const AI = ({carModel, transportation, distance}) => {
     return(
         <div className="suggestion-box">
             <h2>AI Suggestions</h2>
-            {loading && <p>Loading...</p>}
-            {error && <div style={{ color: 'red' }}>Error: {error}</div>}
-            {response && <ReactMarkdown remarkPlugins={[remarkGfm]}>{response}</ReactMarkdown>}
+            <div className="response">
+                {loading && <p>Loading...</p>}
+                {error && <div style={{ color: 'red' }}>Error: {error}</div>}
+                {response && <ReactMarkdown remarkPlugins={[remarkGfm]}>{response}</ReactMarkdown>}
+            </div>
         </div>
     );
 }
