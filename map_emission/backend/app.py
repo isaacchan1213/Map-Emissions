@@ -1,9 +1,28 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import json
 from flask_cors import CORS
+from langchain_groq import ChatGroq
+from langchain_core.prompts import ChatPromptTemplate
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
+
+chat = ChatGroq(
+    model="mixtral-8x7b-32768",
+    temperature=0.7,
+    max_retries=2,
+    api_key=os.getenv('GROQ_API_KEY')  
+)
+
+system_message = "You are a helpful assistant."
+human_message = "{text}"
+
+prompt = ChatPromptTemplate.from_messages([("system", system_message), ("human", human_message)])
+chain = prompt | chat
 
 @app.route('/get-cars')
 def get_cars():
@@ -50,4 +69,5 @@ def get_suggestions():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
+    app.debug = True
     app.run()
