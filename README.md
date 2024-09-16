@@ -19,7 +19,7 @@ As someone who deeply cares about our ever growing climate crisis, this tool aim
   - [Langchain API](https://www.langchain.com/docs) - Used for integrating AI-driven suggestions based on user input.
 
 - **Data Handling**:
-  - A dataset containing over 7000 vehicle models for CO2 emission data found via Jeff Gallini on [Kaggle](https://www.kaggle.com/datasets/jeffgallini/college-football-attendance-2000-to-2018) (thank you Jeff!). 
+  - A dataset containing over 7000 vehicle models for CO2 emission data. Found via Jeff Gallini on [Kaggle](https://www.kaggle.com/datasets/jeffgallini/college-football-attendance-2000-to-2018) (thank you Jeff!). 
 
 ## Getting Started
 
