@@ -4,6 +4,8 @@ A web application designed to track and visualize the amount of carbon emissions
 
 As someone who deeply cares about our ever growing climate crisis, this tool aims at helping you understand the environmental impact of your trips and provides suggestions for reducing emissions.
 
+I also ended up presenting this with a group of students for my databases class. Feel free to check out the slideshow [here](https://docs.google.com/presentation/d/1FuUoeiLP1wAKdvaTfVSFjpYacLjRgAZ8oYRoZ1J9mZs/edit?usp=sharing)!
+
 ## Tech Stack
 
 - **Frontend**:
