@@ -1,6 +1,8 @@
 # MapEmissions
 
-A web application designed to track and visualize the amount of carbon emissions based on your routes. As someone who deeply cares about our ever growing climate crisis, this tool aims at helping you understand the environmental impact of your trips and provides suggestions for reducing emissions.
+A web application designed to track and visualize the amount of carbon emissions based on your routes. 
+
+As someone who deeply cares about our ever growing climate crisis, this tool aims at helping you understand the environmental impact of your trips and provides suggestions for reducing emissions.
 
 ## Tech Stack
 
