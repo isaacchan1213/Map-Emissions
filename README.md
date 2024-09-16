@@ -28,7 +28,7 @@ To run the development server, follow these steps:
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/your-repo/mapemissions.git
+    git clone https://github.com/isaacchan1213/Map-Emissions.git
     cd mapemissions
     ```
 
