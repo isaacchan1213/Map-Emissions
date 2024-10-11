@@ -48,14 +48,19 @@ To run the development server, follow these steps:
     pip install -r requirements.txt
     ```
 
-3. **Run the backend server:**
+3. **Setup the virtual environment:**
+   ```bash
+    python3 -m venv venv
+    ```
+
+4. **Run the backend server:**
 
     ```bash
     cd backend
-    python app.py
+    flask run
     ```
 
-4. **Run the frontend development server:**
+5. **Run the frontend development server:**
 
     ```bash
     cd frontend
@@ -64,7 +69,7 @@ To run the development server, follow these steps:
     yarn dev
     ```
 
-5. **Open the application:**
+6. **Open the application:**
 
     Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
 
