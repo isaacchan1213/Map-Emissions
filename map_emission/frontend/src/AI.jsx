@@ -27,7 +27,7 @@ const AI = ({carModel, transportation, distance}) => {
                         requestData.carModel = carModel;
                     }
                     console.log('Sending request with:', requestData);
-                    const result = await axios.post('http://localhost:5000/api/get-suggestions', requestData);
+                    const result = await axios.post('http://127.0.0.1:5000/api/get-suggestions', requestData);
                     console.log('Received response:', result.data);
                     setResponse(result.data.response || "No response from LangChain");
                 } catch (err) {
